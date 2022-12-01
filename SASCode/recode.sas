@@ -28,23 +28,23 @@ you will probably want to adjust recording of those variables; scroll to the sec
 
 data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year._core;
 
-  /* Recode ICD-9 diagnoses:
-     * resp(iratory) = 460-519 (Diseases Of The Respiratory System)
-     * flu = 487 (Influenza), 488 (Influenza due to certain identified influenza viruses)
-     * rsv = 079.6 (Respiratory syncytial virus),
-         466.11 (Acute bronchiolitis due to respiratory syncytial virus), 
-         480.1 (Pneumonia due to respiratory syncytial virus)
+  /* Recode ICD-10 diagnoses:
+     * resp(iratory) = J00-J99 (Diseases Of The Respiratory System)
+     * flu = 
+     J09  Influenza due to certain identified influenza viruses,
+     J10  Influenza due to other identified influenza virus,
+     J11  Influenza due to unidentified influenza virus
+
+     * rsv = 
+     B97.4 (Respiratory syncytial virus as the cause of diseases classified elsewhere),
+         J21.0 (Acute bronchiolitis due to respiratory syncytial virus), 
+         J20.5 Acute bronchitis due to respiratory syncytial virus,
+         J12.1 (Pneumonia due to respiratory syncytial virus)
+         
      * resp(iratory) other = respiratory but not flu or rsv
-     * bronchio(litis) = 466.1 (Acute bronchiolitis)
-     * pneumo(nia) other = 480-488 (Pneumonia And Influenza) but not flu or rsv
-     * pneumo(coccal) pneumo(nia) = 481 (Pneumococcal pneumonia)
-     * pneumo(coccal) sept(icemia) = 038.2 (Pneumococcal septicemia)
-     * flu (or) pneumo(nia) = flu or pneumonia (or both, but not rsv)
-     
-     and CPT codes:
-     * leg(ionella) test #1: 87449 (Legionella &al antigen, urine)
-     * leg(ionella) test #2: 86713 (Legionella IgG/IgM by DFA)
-     * leg(ionella) test #3: 87278 (Legionella antigen by DFA)
+     * bronchio(litis) = J21 (Acute bronchiolitis)
+     * pneumo(nia) other = J12-J18 (Pneumonia And Influenza) but not flu or rsv
+
   */
   resp = 0;
   resp_prim = 0;
@@ -63,12 +63,6 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
 
   pneumo_other = 0; 
   pneumo_otherprim = 0; 
-
-  pneumopneumo = 0;
-  pneumopneumo_prim = 0;
-
-  pneumosept = 0;
-  pneumosept_prim = 0;
 
   if '460  '<=DX1<='519  ' then resp_prim=1;
   if '4600 '<=DX1<='5199 ' then resp_prim=1;
