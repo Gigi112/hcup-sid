@@ -82,22 +82,14 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
   ARRAY DX[30] DX1-DX30;
   DO I=1 TO 30;
 
-    if '460  '<=DX[I]<='519  ' then resp = 1;
-    if '4600 '<=DX[I]<='5199 ' then resp = 1;
-    if '46000'<=DX[I]<='51999' then resp = 1;
+    if "J00" <=: DX[I] <=: "J99" then resp = 1;
 
-    if '487  '<=DX[I]<='487  ' then flu = 1;
-    if '4870 '<=DX[I]<='4879 ' then flu = 1;
-    if '48700'<=DX[I]<='48799' then flu = 1;
-    if '488  '<=DX[I]<='488  ' then flu = 1;
-    if '4880 '<=DX[I]<='4889 ' then flu = 1;
-    if '48800'<=DX[I]<='48899' then flu = 1;
+    if "J09" <=: DX[I]<=: "J11" then flu = 1;
    
-    if '0796 '<=DX[I]<='0796 ' then rsv = 1;
-    if '07960'<=DX[I]<='07969' then rsv = 1;
-    if '46611'<=DX[I]<='46611' then rsv = 1;
-    if '4801 '<=DX[I]<='4801 ' then rsv = 1;
-    if '48010'<=DX[I]<='48019' then rsv = 1;
+    if DX[I]=:'B97.4' then rsv = 1;
+    if DX[I]=:'J21.0' then rsv = 1;
+    if DX[I]=:'J20.5' then rsv = 1;
+    if DX[I]=:'J12.1' then rsv = 1;
 
     if '460  '<=DX[I]<='519  ' and flu = 0 and rsv = 0 then resp_other = 1;
     if '4600 '<=DX[I]<='5199 ' and flu = 0 and rsv = 0 then resp_other = 1;
