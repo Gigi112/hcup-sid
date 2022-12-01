@@ -64,9 +64,7 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
   pneumo_other = 0; 
   pneumo_otherprim = 0; 
 
-  if '460  '<=DX1<='519  ' then resp_prim=1;
-  if '4600 '<=DX1<='5199 ' then resp_prim=1;
-  if '46000'<=DX1<='51999' then resp_prim=1;
+  if "J00" <=: DX1 <=: "J99" then resp_prim=1;
 
   if '487  '<=DX1<='487  ' then flu_prim=1;
   if '4870 '<=DX1<='4879 ' then flu_prim=1;
