@@ -91,32 +91,16 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
     if DX[I]=:'J20.5' then rsv = 1;
     if DX[I]=:'J12.1' then rsv = 1;
 
-    if '460  '<=DX[I]<='519  ' and flu = 0 and rsv = 0 then resp_other = 1;
-    if '4600 '<=DX[I]<='5199 ' and flu = 0 and rsv = 0 then resp_other = 1;
-    if '46000'<=DX[I]<='51999' and flu = 0 and rsv = 0 then resp_other = 1;
+    if "J00" <=: DX[I] <=: "J99" and flu = 0 and rsv = 0 then resp_other = 1;
 
-    IF '4661 '<=DX[I]<='4661 ' THEN  bronchio = 1; 
-    IF '46610'<=DX[I]<='46619' THEN  bronchio = 1; 
+    IF DX[I]=:'J21' THEN  bronchio = 1; 
   
-    if '480  '<=DX[I]<='488  ' and flu = 0 and rsv = 0 then pneumo_other = 1;
-    if '4800 '<=DX[I]<='4889 ' and flu = 0 and rsv = 0 then pneumo_other = 1;
-    if '48000'<=DX[I]<='48899' and flu = 0 and rsv = 0 then pneumo_other = 1;
-
-    if '481  '<=DX[I]<='481  ' then  pneumopneumo = 1; 
-    if '4810 '<=DX[I]<='4819 ' then  pneumopneumo = 1; 
-    if '48100'<=DX[I]<='48199' then  pneumopneumo = 1; 
-
-    IF '0382 '<=DX[I]<='0382 ' THEN pneumosept = 1; 
+    if "J12" <=: DX[I] <=: "J18" and flu = 0 and rsv = 0 then pneumo_other = 1;
+ 
   END;
   
   flu_pneumo = max(flu, pneumo_other);
   flu_pneumoprim = max(flu_prim, pneumo_otherprim);
-
-  leg_test = 0;
-  ARRAY CPTS[30] CPT1-CPT30;
-  DO I=1 TO 30;
-    if CPTS[I] in('87449', '86713', '87278') then leg_test=1; 
-  END;
   
   /* recode admission date; month 1 = Jan 1901 */
   if missing(ayear) then do;
@@ -182,8 +166,7 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
     died 
     resp resp_prim flu flu_prim rsv rsv_prim resp_other resp_otherprim 
     bronchio bronchio_prim 
-    pneumo_other pneumo_otherprim pneumopneumo pneumopneumo_prim pneumosept pneumosept_prim 
-    leg_test;
+    pneumo_other pneumo_otherprim;
 run;
 
 %if &include_charges. %then %do;
