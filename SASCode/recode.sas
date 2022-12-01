@@ -66,35 +66,18 @@ data sid_&state..recoded_&state._&year._core; set sid_&state..sid_&state._&year.
 
   if "J00" <=: DX1 <=: "J99" then resp_prim=1;
 
-  if '487  '<=DX1<='487  ' then flu_prim=1;
-  if '4870 '<=DX1<='4879 ' then flu_prim=1;
-  if '48700'<=DX1<='48799' then flu_prim=1;
-  if '488  '<=DX1<='488  ' then flu_prim=1;
-  if '4880 '<=DX1<='4889 ' then flu_prim=1;
-  if '48800'<=DX1<='48899' then flu_prim=1;
+  if "J09" <=: DX1 <=: "J11" then flu_prim=1;
 
-  if '0796 '<=DX1<='0796 ' then rsv_prim=1;
-  if '07960'<=DX1<='07969' then rsv_prim=1;
-  if '46611'<=DX1<='46611' then rsv_prim=1;
-  if '4801 '<=DX1<='4801 ' then rsv_prim=1;
-  if '48010'<=DX1<='48019' then rsv_prim=1;
+  if DX1=:'B97.4' then rsv_prim=1;
+  if DX1=:'J21.0' then rsv_prim=1;
+  if DX1=:'J20.5' then rsv_prim=1;
+  if DX1=:'J12.1' then rsv_prim=1;
 
-  if '460  '<=DX1<='519  ' and flu_prim=0 and rsv_prim=0 then resp_otherprim=1;
-  if '4600 '<=DX1<='5199 ' and flu_prim=0 and rsv_prim=0 then resp_otherprim=1;
-  if '46000'<=DX1<='51999' and flu_prim=0 and rsv_prim=0 then resp_otherprim=1;
+  if "J00" <=: DX1 <=: "J99" and flu_prim=0 and rsv_prim=0 then resp_otherprim=1;
 
-  IF '4661 '<=DX1<='4661 ' THEN  bronchio_prim = 1; 
-  IF '46610'<=DX1<='46619' THEN  bronchio_prim = 1; 
+  IF DX1=:'J21' THEN  bronchio_prim = 1; 
 
-  if '480  '<=DX1<='488  ' and flu_prim=0 and rsv_prim=0 then pneumo_otherprim=1;
-  if '4800 '<=DX1<='4889 ' and flu_prim=0 and rsv_prim=0 then pneumo_otherprim=1;
-  if '48000'<=DX1<='48899' and flu_prim=0 and rsv_prim=0 then pneumo_otherprim=1;
-
-  IF '481  '<=DX1<='481  ' THEN  pneumopneumo_prim = 1; 
-  IF '4810 '<=DX1<='4819 ' THEN  pneumopneumo_prim = 1; 
-  IF '48100'<=DX1<='48199' THEN  pneumopneumo_prim = 1; 
-
-  IF '0382 '<=DX1<='0382 ' THEN  pneumosept_prim = 1; 
+  if "J12" <=: DX1 <=: "J18" then pneumo_otherprim=1;
 
   ARRAY DX[30] DX1-DX30;
   DO I=1 TO 30;
